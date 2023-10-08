@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
@@ -15,6 +17,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertManyResult;
 
 public class _04_InsertMany {
+
+    private static final Logger logger = LoggerFactory.getLogger(_04_InsertMany.class);
 
     public static void main(String[] args) {
 
@@ -26,30 +30,30 @@ public class _04_InsertMany {
 
             MongoCollection<Document> collection = database.getCollection("posts"); /* Open the collection (table)) */
 
-            List<Document> movieList = Arrays.asList(
-						            		new Document()
-						            		        .append("_id", new ObjectId())
-						                            .append("title", "Post Title 6")
-						                            .append("body", "Body of post.")
-						                            .append("category", "Technology")
-						                            .append("likes", 3)
-						                            .append("tags", Arrays.asList("news","events"))
-						                            .append("date", new Date().toString()),
-						                    new Document()
-						                            .append("_id", new ObjectId())
-						                            .append("title", "Post Title 7")
-						                            .append("body", "Body of post.")
-						                            .append("category", "Event")
-						                            .append("likes", 7)
-						                            .append("tags", Arrays.asList("news","events"))
-						                            .append("date", new Date().toString()));
-            
-            InsertManyResult result = collection.insertMany(movieList);
+            List<Document> posts = Arrays.asList(
+                                            new Document()
+                                                .append("_id", new ObjectId())
+                                                .append("title", "Post Title Hello 6")
+                                                .append("body", "Body of post.")
+                                                .append("category", "Technology")
+                                                .append("likes", 6)
+                                                .append("tags", Arrays.asList("news","events"))
+                                                .append("date", new Date().toString()),
+                                            new Document()
+                                                .append("_id", new ObjectId())
+                                                .append("title", "Post Title Hello 7")
+                                                .append("body", "Body of post.")
+                                                .append("category", "Technology")
+                                                .append("likes", 7)
+                                                .append("tags", Arrays.asList("news","events"))
+                                                .append("date", new Date().toString()));
 
-            System.out.println("Success!, Document ids " + result.getInsertedIds());
+            InsertManyResult result = collection.insertMany(posts);
+
+            logger.debug("Success!, Document ids " + result.getInsertedIds());
 
         } catch (MongoException me) {
-            System.out.println("Error while Inserting!, " + me.getMessage());
+        	logger.debug("Error while Inserting!, " + me.getMessage());
         }
     }
 }
