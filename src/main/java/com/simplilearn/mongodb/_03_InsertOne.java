@@ -35,9 +35,9 @@ public class _03_InsertOne {
                         .append("date", new Date()));
 
                 System.out.println("Success!, Document id " + result.getInsertedId());
-                
-        } catch (MongoException me) {        	
-        	System.out.println("Error while Inserting!, " + me.getMessage());
+
+        } catch (MongoException me) {
+            System.out.println("Error while Inserting!, " + me.getMessage());
         }
     }
 }
